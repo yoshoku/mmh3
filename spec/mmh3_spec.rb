@@ -1,9 +1,8 @@
-RSpec.describe Mmh3 do
-  it "has a version number" do
-    expect(Mmh3::VERSION).not_to be nil
-  end
+# frozen_string_literal: true
 
-  it "does something useful" do
-    expect(false).to eq(true)
+RSpec.describe Mmh3 do
+  describe '#hash32' do
+    it { expect(Mmh3.hash32('Hello, world', 0)).to eq(1785891924) }
+    it { expect(Mmh3.hash32('Hello, world', 10)).to eq(-172601702) }
   end
 end
