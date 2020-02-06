@@ -1,4 +1,7 @@
 # Mmh3
+
+![Ruby](https://github.com/yoshoku/mmh3/workflows/Ruby/badge.svg)
+
 A pure Ruby implementation of MurmurHash3.
 
 ## Installation
