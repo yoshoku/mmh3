@@ -2,7 +2,7 @@
 
 ![Ruby](https://github.com/yoshoku/mmh3/workflows/Ruby/badge.svg)
 
-A pure Ruby implementation of MurmurHash3.
+A pure Ruby implementation of [MurmurHash3](https://en.wikipedia.org/wiki/MurmurHash).
 
 ## Installation
 
