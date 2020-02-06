@@ -2,12 +2,20 @@
 
 require 'mmh3/version'
 
+# This module consists module functions that implement MurmurHash3.
+# MurmurHash3 was written by Austin Appleby, and is placed in the public domain.
+# The author hereby disclaims copyright to this source code.
 module Mmh3
   module_function
 
-  def hash32(key_str, seed = 0)
-    key_str = key_str.to_s unless key_str.is_a?(String)
-    keyb = key_str.bytes
+  # Generate a 32-bit hash value.
+  #
+  # @param key [String] Key for hash value.
+  # @param seed [Integer] Seed for hash value.
+  #
+  # @return [Integer] Returns hash value.
+  def hash32(key, seed = 0)
+    keyb = key.to_s.bytes
     key_len = keyb.size
     n_blocks = key_len / 4
 
