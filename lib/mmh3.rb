@@ -45,13 +45,22 @@ module Mmh3
     end
   end
 
-  # Generate a 128-bit hash value for x64 architecture.
+  # Generate a 128-bit hash value.
   #
   # @param key [String] Key for hash value.
   # @param seed [Integer] Seed for hash value.
+  # @param x64arch [Boolean] Flag indicating whether to generate hash value for x64 architecture.
   #
   # @return [Integer] Returns hash value.
-  def hash128(key, seed = 0)
+  def hash128(key, seed = 0, x64arch = true)
+    return hash128_x86(key, seed) if x64arch == false
+
+    hash128_x64(key, seed)
+  end
+
+  # private
+
+  def hash128_x64(key, seed = 0)
     keyb = key.to_s.bytes
     key_len = keyb.size
     n_blocks = key_len / 16
@@ -135,12 +144,6 @@ module Mmh3
     h2 << 64 | h1
   end
 
-  # Generate a 128-bit hash value for x86 architecture.
-  #
-  # @param key [String] Key for hash value.
-  # @param seed [Integer] Seed for hash value.
-  #
-  # @return [Integer] Returns hash value.
   def hash128_x86(key, seed = 0)
     keyb = key.to_s.bytes
     key_len = keyb.size
@@ -279,8 +282,6 @@ module Mmh3
     h4 << 96 | h3 << 64 | h2 << 32 | h1
   end
 
-  # private
-
   def block32(kb, bstart, offset)
     kb[bstart + offset + 3] << 24 |
     kb[bstart + offset + 2] << 16 |
@@ -329,5 +330,5 @@ module Mmh3
     h ^ (h >> 33)
   end
 
-  private_class_method :block64, :rotl32, :rotl64, :scramble32, :fmix32, :fmix64
+  private_class_method :hash128_x64, :hash128_x86, :block32, :block64, :rotl32, :rotl64, :scramble32, :fmix32, :fmix64
 end
