@@ -135,7 +135,158 @@ module Mmh3
     h2 << 64 | h1
   end
 
+  # Generate a 128-bit hash value for x86 architecture.
+  #
+  # @param key [String] Key for hash value.
+  # @param seed [Integer] Seed for hash value.
+  #
+  # @return [Integer] Returns hash value.
+  def hash128_x86(key, seed = 0)
+    keyb = key.to_s.bytes
+    key_len = keyb.size
+    n_blocks = key_len / 16
+
+    h1 = seed
+    h2 = seed
+    h3 = seed
+    h4 = seed
+    c1 = 0x239b961b
+    c2 = 0xab0e9789
+    c3 = 0x38b34ae5
+    c4 = 0xa1e38b93
+
+    (0...n_blocks * 16).step(16) do |bstart|
+      k1 = block32(keyb, bstart,  0)
+      k2 = block32(keyb, bstart,  4)
+      k3 = block32(keyb, bstart,  8)
+      k4 = block32(keyb, bstart, 12)
+
+      k1 = (k1 * c1) & 0xFFFFFFFF
+      k1 = rotl32(k1, 15)
+      k1 = (k1 * c2) & 0xFFFFFFFF
+      h1 ^= k1
+
+      h1 = rotl32(h1, 19)
+      h1 = (h1 + h2) & 0xFFFFFFFF
+      h1 = (h1 * 5 + 0x561ccd1b) & 0xFFFFFFFF
+
+      k2 = (k2 * c2) & 0xFFFFFFFF
+      k2 = rotl32(k2, 16)
+      k2 = (k2 * c3) & 0xFFFFFFFF
+      h2 ^= k2
+
+      h2 = rotl32(h2, 17)
+      h2 = (h2 + h3) & 0xFFFFFFFF
+      h2 = (h2 * 5 + 0x0bcaa747) & 0xFFFFFFFF
+
+      k3 = (k3 * c3) & 0xFFFFFFFF
+      k3 = rotl32(k3, 17)
+      k3 = (k3 * c4) & 0xFFFFFFFF
+      h3 ^= k3
+
+      h3 = rotl32(h3, 15)
+      h3 = (h3 + h4) & 0xFFFFFFFF
+      h3 = (h3 * 5 + 0x96cd1c35) & 0xFFFFFFFF
+
+      k4 = (k4 * c4) & 0xFFFFFFFF
+      k4 = rotl32(k4, 18)
+      k4 = (k4 * c1) & 0xFFFFFFFF
+      h4 ^= k4
+
+      h4 = rotl32(h4, 13)
+      h4 = (h4 + h1) & 0xFFFFFFFF
+      h4 = (h4 * 5 + 0x32ac3b17) & 0xFFFFFFFF
+    end
+
+    tail_id = n_blocks * 16
+    tail_sz = key_len & 15
+
+    k4 = 0
+    k4 ^= keyb[tail_id + 14] << 16 if tail_sz >= 15
+    k4 ^= keyb[tail_id + 13] <<  8 if tail_sz >= 14
+    k4 ^= keyb[tail_id + 12]       if tail_sz >= 13
+
+    if tail_sz > 12
+      k4 = (k4 * c4) & 0xFFFFFFFF
+      k4 = rotl32(k4, 18)
+      k4 = (k4 * c1) & 0xFFFFFFFF
+      h4 ^= k4
+    end
+
+    k3 = 0
+    k3 ^= keyb[tail_id + 11] << 24 if tail_sz >= 12
+    k3 ^= keyb[tail_id + 10] << 16 if tail_sz >= 11
+    k3 ^= keyb[tail_id +  9] <<  8 if tail_sz >= 10
+    k3 ^= keyb[tail_id +  8]       if tail_sz >=  9
+
+    if tail_sz > 8
+      k3 = (k3 * c3) & 0xFFFFFFFF
+      k3 = rotl32(k3, 17)
+      k3 = (k3 * c4) & 0xFFFFFFFF
+      h3 ^= k3
+    end
+
+    k2 = 0
+    k2 ^= keyb[tail_id +  7] << 24 if tail_sz >=  8
+    k2 ^= keyb[tail_id +  6] << 16 if tail_sz >=  7
+    k2 ^= keyb[tail_id +  5] <<  8 if tail_sz >=  6
+    k2 ^= keyb[tail_id +  4]       if tail_sz >=  5
+
+    if tail_sz > 4
+      k2 = (k2 * c2) & 0xFFFFFFFF
+      k2 = rotl32(k2, 16)
+      k2 = (k2 * c3) & 0xFFFFFFFF
+      h2 ^= k2
+    end
+
+    k1 = 0
+    k1 ^= keyb[tail_id +  3] << 24 if tail_sz >=  4
+    k1 ^= keyb[tail_id +  2] << 16 if tail_sz >=  3
+    k1 ^= keyb[tail_id +  1] <<  8 if tail_sz >=  2
+    k1 ^= keyb[tail_id]            if tail_sz >=  1
+
+    if tail_sz > 0
+      k1 = (k1 * c1) & 0xFFFFFFFF
+      k1 = rotl32(k1, 15)
+      k1 = (k1 * c2) & 0xFFFFFFFF
+      h1 ^= k1
+    end
+
+    h1 ^= key_len
+    h2 ^= key_len
+    h3 ^= key_len
+    h4 ^= key_len
+
+    h1 = (h1 + h2) & 0xFFFFFFFF
+    h1 = (h1 + h3) & 0xFFFFFFFF
+    h1 = (h1 + h4) & 0xFFFFFFFF
+    h2 = (h1 + h2) & 0xFFFFFFFF
+    h3 = (h1 + h3) & 0xFFFFFFFF
+    h4 = (h1 + h4) & 0xFFFFFFFF
+
+    h1 = fmix32(h1)
+    h2 = fmix32(h2)
+    h3 = fmix32(h3)
+    h4 = fmix32(h4)
+
+    h1 = (h1 + h2) & 0xFFFFFFFF
+    h1 = (h1 + h3) & 0xFFFFFFFF
+    h1 = (h1 + h4) & 0xFFFFFFFF
+    h2 = (h1 + h2) & 0xFFFFFFFF
+    h3 = (h1 + h3) & 0xFFFFFFFF
+    h4 = (h1 + h4) & 0xFFFFFFFF
+
+    h4 << 96 | h3 << 64 | h2 << 32 | h1
+  end
+
   # private
+
+  def block32(kb, bstart, offset)
+    kb[bstart + offset + 3] << 24 |
+    kb[bstart + offset + 2] << 16 |
+    kb[bstart + offset + 1] <<  8 |
+    kb[bstart + offset]
+  end
 
   def block64(kb, bstart, offset)
     kb[2 * bstart + (7 + offset)] << 56 |

@@ -10,4 +10,9 @@ RSpec.describe Mmh3 do
     it { expect(described_class.hash128('Hello, world', 0)).to eq(158517598496188337575393694976300464500) }
     it { expect(described_class.hash128('Hello, world', 80)).to eq(30039177286814921195667057753583847313) }
   end
+
+  describe '#hash128_x86' do
+    it { expect(described_class.hash128_x86('Hello, world', 0)).to eq(253056019824187517714158156925852552360) }
+    it { expect(described_class.hash128_x86('Hello, world', 7)).to eq(52510795136989075550025607058488316817) }
+  end
 end
