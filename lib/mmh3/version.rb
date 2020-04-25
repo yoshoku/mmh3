@@ -2,5 +2,5 @@
 
 module Mmh3
   # Version number of Mmh3 you are using.
-  VERSION = '0.3.0'
+  VERSION = '1.0.0'
 end
