@@ -21,7 +21,7 @@ module Mmh3
 
     h = seed
     (0...n_blocks * 4).step(4) do |bstart|
-      k = keyb[bstart + 3] << 24 | keyb[bstart + 2] << 16 | keyb[bstart + 1] << 8 | keyb[bstart + 0]
+      k = block32(keyb, bstart, 0)
       h ^= scramble32(k)
       h = rotl32(h, 13)
       h = (h * 5 + 0xe6546b64) & 0xFFFFFFFF
@@ -32,8 +32,9 @@ module Mmh3
 
     k = 0
     k ^= keyb[tail_id + 2] << 16 if tail_sz >= 3
-    k ^= keyb[tail_id + 1] << 8 if tail_sz >= 2
-    k ^= keyb[tail_id + 0] if tail_sz >= 1
+    k ^= keyb[tail_id + 1] <<  8 if tail_sz >= 2
+    k ^= keyb[tail_id + 0]       if tail_sz >= 1
+
     h ^= scramble32(k) if tail_sz.positive?
 
     h = fmix32(h ^ key_len)
