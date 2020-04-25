@@ -14,7 +14,7 @@ module Mmh3
   # @param seed [Integer] Seed for hash value.
   #
   # @return [Integer] Returns hash value.
-  def hash32(key, seed = 0)
+  def hash32(key, seed: 0)
     keyb = key.to_s.bytes
     key_len = keyb.size
     n_blocks = key_len / 4
@@ -52,7 +52,7 @@ module Mmh3
   # @param x64arch [Boolean] Flag indicating whether to generate hash value for x64 architecture.
   #
   # @return [Integer] Returns hash value.
-  def hash128(key, seed = 0, x64arch = true)
+  def hash128(key, seed: 0, x64arch: true)
     return hash128_x86(key, seed) if x64arch == false
 
     hash128_x64(key, seed)
