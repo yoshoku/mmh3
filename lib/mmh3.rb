@@ -10,6 +10,11 @@ module Mmh3
 
   # Generate a 32-bit hash value.
   #
+  # @example
+  #   require 'mmh3'
+  #
+  #   puts Mmh3.hash32('Hello, world') # => 1785891924
+  #
   # @param key [String] Key for hash value.
   # @param seed [Integer] Seed for hash value.
   #
@@ -47,6 +52,11 @@ module Mmh3
   end
 
   # Generate a 128-bit hash value.
+  #
+  # @example
+  #   require 'mmh3'
+  #
+  #   puts Mmh3.hash128('Hello, world') # => 87198040132278428547135563345531192982
   #
   # @param key [String] Key for hash value.
   # @param seed [Integer] Seed for hash value.
