@@ -1,7 +1,8 @@
 # Mmh3
 
-![Ruby](https://github.com/yoshoku/mmh3/workflows/Ruby/badge.svg)
+[![Ruby](https://github.com/yoshoku/mmh3/workflows/Ruby/badge.svg)](https://github.com/yoshoku/mmh3/actions?query=workflow%3ARuby)
 [![Gem Version](https://badge.fury.io/rb/mmh3.svg)](https://badge.fury.io/rb/mmh3)
+[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://rubydoc.info/gems/mmh3)
 
 A pure Ruby implementation of [MurmurHash3](https://en.wikipedia.org/wiki/MurmurHash).
 
