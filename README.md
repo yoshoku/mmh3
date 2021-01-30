@@ -1,6 +1,7 @@
 # Mmh3
 
-[![Ruby](https://github.com/yoshoku/mmh3/workflows/Ruby/badge.svg)](https://github.com/yoshoku/mmh3/actions?query=workflow%3ARuby)
+[![Build Status](https://github.com/yoshoku/mmh3/workflows/build/badge.svg)](https://github.com/yoshoku/mmh3/actions?query=workflow%3Abuild)
+[![Coverage Status](https://coveralls.io/repos/github/yoshoku/mmh3/badge.svg?branch=main)](https://coveralls.io/github/yoshoku/mmh3?branch=main)
 [![Gem Version](https://badge.fury.io/rb/mmh3.svg)](https://badge.fury.io/rb/mmh3)
 [![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://rubydoc.info/gems/mmh3)
 
