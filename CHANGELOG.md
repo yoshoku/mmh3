@@ -1,3 +1,6 @@
+# 1.1.0
+- Add type declaration file: sig/mmh3.rbs
+
 # 1.0.0
 - Change to use keyword argument for seed and x64arch arguments.
 - Refactor hash32 method.
