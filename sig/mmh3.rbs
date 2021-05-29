@@ -1,0 +1,18 @@
+module Mmh3
+  VERSION: String
+
+  def self?.hash32: (String key, ?seed: Integer seed) -> Integer
+  def self?.hash128: (String key, ?seed: Integer seed, ?x64arch: bool x64arch) -> Integer
+
+  private
+
+  def self?.hash128_x64: (String key, ?Integer seed) -> Integer
+  def self?.hash128_x86: (String key, ?Integer seed) -> Integer
+  def self?.block32: (Array[Integer] kb, Integer bstart, Integer offset) -> Integer
+  def self?.block64: (Array[Integer] kb, Integer bstart, Integer offset) -> Integer
+  def self?.rotl32: (Integer x, Integer r) -> Integer
+  def self?.rotl64: (Integer x, Integer r) -> Integer
+  def self?.scramble32: (Integer k) -> Integer
+  def self?.fmix32: (Integer h) -> Integer
+  def self?.fmix64: (Integer h) -> Integer
+end
