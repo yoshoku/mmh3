@@ -45,3 +45,6 @@ RSpec/NestedGroups:
 
 Style/NumericLiterals:
   Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
