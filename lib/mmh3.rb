@@ -2,6 +2,8 @@
 
 require 'mmh3/version'
 
+# rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/ModuleLength, Metrics/PerceivedComplexity
+
 # This module consists module functions that implement MurmurHash3.
 # MurmurHash3 was written by Austin Appleby, and is placed in the public domain.
 # The author hereby disclaims copyright to this source code.
@@ -343,3 +345,5 @@ module Mmh3
 
   private_class_method :hash128_x64, :hash128_x86, :block32, :block64, :rotl32, :rotl64, :scramble32, :fmix32, :fmix64
 end
+
+# rubocop:enable Metrics/AbcSize, Metrics/BlockLength, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/ModuleLength, Metrics/PerceivedComplexity
