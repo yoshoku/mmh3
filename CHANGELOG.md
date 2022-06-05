@@ -1,3 +1,6 @@
+# 1.2.0
+- Refactor codes and configs with RuboCop.
+
 # 1.1.0
 - Add type declaration file: sig/mmh3.rbs
 
