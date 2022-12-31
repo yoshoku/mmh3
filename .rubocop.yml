@@ -16,7 +16,7 @@ Gemspec/RequiredRubyVersion:
   Enabled: false
 
 Layout/LineLength:
-  IgnoredPatterns: ['(\A|\s)#']
+  AllowedPatterns: ['(\A|\s)#']
 
 Metrics/BlockLength:
   Exclude:
