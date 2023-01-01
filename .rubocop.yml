@@ -48,3 +48,6 @@ Style/NumericLiterals:
 
 Style/NumericPredicate:
   Enabled: false
+
+Style/YodaExpression:
+  Enabled: false
