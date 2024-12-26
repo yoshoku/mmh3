@@ -48,7 +48,7 @@ module Mmh3
 
     h = fmix32(h ^ key_len)
 
-    if (h & 0x80000000).zero?
+    if h.nobits?(0x80000000)
       h
     else
       -((h ^ 0xFFFFFFFF) + 1)
