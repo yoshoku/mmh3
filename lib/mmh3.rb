@@ -27,7 +27,7 @@ module Mmh3
     n_blocks = key_len / 4
 
     h = seed
-    (0...n_blocks * 4).step(4) do |bstart|
+    (0...(n_blocks * 4)).step(4) do |bstart|
       k = block32(keyb, bstart, 0)
       h ^= scramble32(k)
       h = rotl32(h, 13)
@@ -85,7 +85,7 @@ module Mmh3
     c1 = 0x87c37b91114253d5
     c2 = 0x4cf5ad432745937f
 
-    (0...n_blocks * 8).step(8) do |bstart|
+    (0...(n_blocks * 8)).step(8) do |bstart|
       k1 = block64(keyb, bstart, 0)
       k2 = block64(keyb, bstart, 8)
 
@@ -177,7 +177,7 @@ module Mmh3
     c3 = 0x38b34ae5
     c4 = 0xa1e38b93
 
-    (0...n_blocks * 16).step(16) do |bstart|
+    (0...(n_blocks * 16)).step(16) do |bstart|
       k1 = block32(keyb, bstart,  0)
       k2 = block32(keyb, bstart,  4)
       k3 = block32(keyb, bstart,  8)
