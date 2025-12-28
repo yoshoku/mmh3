@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in mmh3.gemspec
 gemspec
 
+gem 'ostruct', '~> 0.6.3'
 gem 'rake', '~> 12.0'
 gem 'rbs', '~> 1.2'
 gem 'rspec', '~> 3.0'
