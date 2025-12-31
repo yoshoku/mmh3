@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'ostruct', '~> 0.6.3'
-gem 'rake', '~> 12.0'
+gem 'rake', '~> 13.0'
 gem 'rbs', '~> 1.2'
 gem 'rspec', '~> 3.0'
 gem 'rubocop', '~> 1.24'
